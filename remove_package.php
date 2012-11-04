@@ -10,6 +10,9 @@
 			
 			if(empty($errors)){
 				unlink($delete);
+				exec('rm Packages.bz2');
+		        exec('dpkg-scanpackages -m . /dev/null >Packages');
+		        exec('bzip2 Packages');
 			}
 		}
 	}
