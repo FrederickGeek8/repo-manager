@@ -17,6 +17,6 @@ To install this, just place all the file in a directory on your webserver. You m
 Prerequisites
 ============
 
-In order for this to run you need to have installed bzip2. This can be installed by running
+In order for this to run you need to have installed two other packages besides PHP and a webserver. You need bzip2 and dpkg-dev. These packages can be installed by running:
 
-sudo apt-get install bzip2
+sudo apt-get install bzip2 dpkg-dev
