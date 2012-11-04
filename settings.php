@@ -65,7 +65,7 @@ Description: {$description}";
 		</style>
 	</head>
 	<body>
-		<header><a href='home.php'>Home</a></header>
+		<header><a href='index.php'>Home</a></header>
 		<h1>Repo Settings</h1>
 		<h4>Note: Everything here is optional, but some will be automatically filled in if left blank.</h4>
 		<ul>

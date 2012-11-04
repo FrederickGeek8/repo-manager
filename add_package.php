@@ -22,7 +22,7 @@ if(isset($_FILES['file'])){
 		<title>New Package | Repo Manager</title>
 	</head>
 	<body>
-		<header><a href='home.php'>Home</a></header>
+		<header><a href='index.php'>Home</a></header>
 		<ul>
 			<?php
 				foreach($errors as $error){

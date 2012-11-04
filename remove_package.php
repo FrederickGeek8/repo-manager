@@ -19,7 +19,7 @@
 		<title>Remove a Package | Repo Manager</title>
 	</head>
 	<body>
-		<header><a href='home.php'>Home</a></header>
+		<header><a href='index.php'>Home</a></header>
 		<h1>Remove a Package</h1>
 		<ul>
 			<?php
