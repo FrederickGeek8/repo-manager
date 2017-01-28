@@ -9,6 +9,10 @@ if(isset($_FILES['file'])){
 		$errors[] = 'Please upload a valid .deb file!';
 	}
 
+	if ('password' !== 'Ge0rgesRepoRules') {
+		$errors[] = 'Please enter the correct password.';
+	}
+
 	if(empty($errors)){
 		move_uploaded_file($_FILES["file"]["tmp_name"], "{$path}/{$_FILES["file"]["name"]}");
 		exec('rm Packages.bz2');
@@ -30,13 +34,22 @@ if(isset($_FILES['file'])){
 				}
 			?>
 		</ul>
-		<?php if(isset($_FILES['file'])){ if(empty($errors)){ echo '<p>Success</p>'; } } ?>
+		<?php
+			if(isset($_FILES['file'])) {
+				 if(empty($errors)) {
+						echo '<p>Success</p>';
+				 }
+			 }
+		?>
 		<h1>Uploading a New Packages</h1>
 		<h2>Please select a file.</h2>
 		<form action='#' method="post" enctype="multipart/form-data">
 			<p>
 				<label for="file">Filename:</label>
 				<input type="file" name="file" id="file" />
+			<p>
+				<label for="password">Password:</label>
+				<input type='password' id="password"/>
 			<p>
 				<input type='submit' value='Upload Package' />
 			</p>

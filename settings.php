@@ -1,15 +1,21 @@
 <?php
 	include('core/config.php');
-	
+
 	$errors = array();
-	
+
 	if(!empty($_POST)){
 		if(empty($_POST['suite'])){
 			$_POST['suite'] = 'stable';
 		}
+
 		if(empty($_POST['components'])){
 			$_POST['components'] = 'main';
 		}
+
+		if ($_POST['password'] !== 'Ge0rgesRepoRules') {
+			$errors[] = 'Please enter the correct password.';
+		}
+
 		$origin = addslashes(html_entity_decode($_POST['origin']));
 		$label = addslashes(html_entity_decode($_POST['label']));
 		$suite = addslashes(html_entity_decode($_POST['suite']));
@@ -45,11 +51,11 @@ Codename: {$codename}
 Architectures: {$architectures}
 Components: {$components}
 Description: {$description}";
-		
+
 		$fp = fopen('core/config.php', 'w');
 		fwrite($fp, $config);
 		fclose($fp);
-		
+
 		$file = fopen('Release', 'w');
 		fwrite($file, $content);
 		fclose($file);
@@ -107,6 +113,10 @@ Description: {$description}";
 			<p>
 				<label for='description'>Description:</label>
 				<textarea rows="4" cols="50" name='description' id='description' placeholder='Description'><?php if(empty($description) === false){ echo htmlentities(stripslashes($description)); } ?></textarea>
+			</p>
+			<p>
+				<label for="password">Password:</label>
+				<input type='password' id="password"/>
 			</p>
 			<p>
 				<input type='submit' value='Update' />
