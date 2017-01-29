@@ -35,6 +35,7 @@ if(isset($_POST['submit'])) {
 	<h1>Remove a Package</h1>
 	<ul>
 		<?php
+<<<<<<< HEAD
 		foreach($errors as $error){
 			echo '<li>'.$error.'</li>';
 		}
@@ -47,6 +48,18 @@ if(isset($_POST['submit'])) {
 		while (($file = readdir($handle)) !== false) {
 			if ($file !== "." && $file !== ".." && strtolower(substr($file, strrpos($file, '.') + 1)) == 'deb') {
 				$thelist .= '<option value="'.$file.'">'.$file.'</option>';
+=======
+			$thelist = '';
+			if ($handle = opendir('.')) {
+				while (false !== ($file = readdir($handle)))
+				{
+					if ($file != "." && (strpos($file, '/') == false && $file != ".." && strtolower(substr($file, strrpos($file, '.') + 1)) == 'deb')
+					{
+						$thelist .= '<li><a href="'.$file.'">'.$file.'</a> <a style="text-decoration:none; color:grey;" href="remove_package.php?file='.urlencode($file).'">&#215;</a></li>';
+					}
+				}
+				closedir($handle);
+>>>>>>> origin/master
 			}
 		}
 		closedir($handle);
