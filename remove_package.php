@@ -35,20 +35,6 @@ if(isset($_POST['submit'])) {
 	<h1>Remove a Package</h1>
 	<ul>
 		<?php
-<<<<<<< HEAD
-		foreach($errors as $error){
-			echo '<li>'.$error.'</li>';
-		}
-		?>
-	</ul>
-
-	<?php
-	$thelist = '';
-	if ($handle = opendir('.')) {
-		while (($file = readdir($handle)) !== false) {
-			if ($file !== "." && $file !== ".." && strtolower(substr($file, strrpos($file, '.') + 1)) == 'deb') {
-				$thelist .= '<option value="'.$file.'">'.$file.'</option>';
-=======
 			$thelist = '';
 			if ($handle = opendir('.')) {
 				while (false !== ($file = readdir($handle)))
@@ -59,7 +45,6 @@ if(isset($_POST['submit'])) {
 					}
 				}
 				closedir($handle);
->>>>>>> origin/master
 			}
 		}
 		closedir($handle);
