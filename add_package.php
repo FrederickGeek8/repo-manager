@@ -9,7 +9,7 @@ if(isset($_FILES['file'])){
 		$errors[] = 'Please upload a valid .deb file!';
 	}
 
-	if ('password' !== 'Ge0rgesRepoRules') {
+	if ($_POST['password'] !== 'Ge0rgesRepoRules') {
 		$errors[] = 'Please enter the correct password.';
 	}
 
@@ -49,9 +49,9 @@ if(isset($_FILES['file'])){
 				<input type="file" name="file" id="file" />
 			<p>
 				<label for="password">Password:</label>
-				<input type='password' id="password"/>
+				<input type='password' name='password' id="password"/>
 			<p>
-				<input type='submit' value='Upload Package' />
+				<input type='submit' value='Upload Package'/>
 			</p>
 		</form>
 	</body>
