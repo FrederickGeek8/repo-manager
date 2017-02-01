@@ -1,58 +1,64 @@
 <?php
 	include('core/config.php');
-	
-	$errors = array();
-	
-	if(!empty($_POST)){
-		if(empty($_POST['suite'])){
-			$_POST['suite'] = 'stable';
-		}
-		if(empty($_POST['components'])){
-			$_POST['components'] = 'main';
-		}
-		$origin = addslashes(html_entity_decode($_POST['origin']));
-		$label = addslashes(html_entity_decode($_POST['label']));
-		$suite = addslashes(html_entity_decode($_POST['suite']));
-		$version = addslashes(html_entity_decode($_POST['version']));
-		$codename = addslashes(html_entity_decode($_POST['codename']));
-		$architectures = addslashes(html_entity_decode($_POST['architectures']));
-		$components = addslashes(html_entity_decode($_POST['components']));
-		$description = addslashes(html_entity_decode($_POST['description']));
-		$config = '<?php
-	$origin = \''.$origin.'\';
-	$label = \''.$label.'\';
-	$suite = \''.$suite.'\';
-	$version = \''.$version.'\';
-	$codename = \''.$codename.'\';
-	$architectures = \''.$architectures.'\';
-	$components = \''.$components.'\';
-	$description = \''.$description.'\';
-?>';
 
-		$origin = html_entity_decode($_POST['origin']);
-		$label = html_entity_decode($_POST['label']);
-		$suite = html_entity_decode($_POST['suite']);
-		$version = html_entity_decode($_POST['version']);
-		$codename = html_entity_decode($_POST['codename']);
-		$architectures = html_entity_decode($_POST['architectures']);
-		$components = html_entity_decode($_POST['components']);
-		$description = html_entity_decode($_POST['description']);
-		$content = "Origin: {$origin}
-Label: {$label}
-Suite: {$suite}
-Version: {$version}
-Codename: {$codename}
-Architectures: {$architectures}
-Components: {$components}
-Description: {$description}";
-		
-		$fp = fopen('core/config.php', 'w');
-		fwrite($fp, $config);
-		fclose($fp);
-		
-		$file = fopen('Release', 'w');
-		fwrite($file, $content);
-		fclose($file);
+	$errors = array();
+
+	if(!empty($_POST)){
+		if ($_POST['password'] !== 'Ge0rgesRepoRules') {
+			$errors[] = 'Please enter the correct password.';
+		} else {
+			if(empty($_POST['suite'])){
+				$_POST['suite'] = 'stable';
+			}
+
+			if(empty($_POST['components'])){
+				$_POST['components'] = 'main';
+			}
+
+			$origin = addslashes(html_entity_decode($_POST['origin']));
+			$label = addslashes(html_entity_decode($_POST['label']));
+			$suite = addslashes(html_entity_decode($_POST['suite']));
+			$version = addslashes(html_entity_decode($_POST['version']));
+			$codename = addslashes(html_entity_decode($_POST['codename']));
+			$architectures = addslashes(html_entity_decode($_POST['architectures']));
+			$components = addslashes(html_entity_decode($_POST['components']));
+			$description = addslashes(html_entity_decode($_POST['description']));
+			$config = '<?php
+			$origin = \''.$origin.'\';
+			$label = \''.$label.'\';
+			$suite = \''.$suite.'\';
+			$version = \''.$version.'\';
+			$codename = \''.$codename.'\';
+			$architectures = \''.$architectures.'\';
+			$components = \''.$components.'\';
+			$description = \''.$description.'\';
+			?>';
+
+			$origin = html_entity_decode($_POST['origin']);
+			$label = html_entity_decode($_POST['label']);
+			$suite = html_entity_decode($_POST['suite']);
+			$version = html_entity_decode($_POST['version']);
+			$codename = html_entity_decode($_POST['codename']);
+			$architectures = html_entity_decode($_POST['architectures']);
+			$components = html_entity_decode($_POST['components']);
+			$description = html_entity_decode($_POST['description']);
+			$content = "Origin: {$origin}
+			Label: {$label}
+			Suite: {$suite}
+			Version: {$version}
+			Codename: {$codename}
+			Architectures: {$architectures}
+			Components: {$components}
+			Description: {$description}";
+
+			$fp = fopen('core/config.php', 'w');
+			fwrite($fp, $config);
+			fclose($fp);
+
+			$file = fopen('Release', 'w');
+			fwrite($file, $content);
+			fclose($file);
+		}
 	}
 ?>
 <html>
@@ -107,6 +113,10 @@ Description: {$description}";
 			<p>
 				<label for='description'>Description:</label>
 				<textarea rows="4" cols="50" name='description' id='description' placeholder='Description'><?php if(empty($description) === false){ echo htmlentities(stripslashes($description)); } ?></textarea>
+			</p>
+			<p>
+				<label for="password">Password:</label>
+				<input type='password' name='password' id='password'/>
 			</p>
 			<p>
 				<input type='submit' value='Update' />
