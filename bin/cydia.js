@@ -2,6 +2,7 @@
 
 const program = require("commander");
 const Settings = require("../settings");
+const PM = require("../package_manager");
 const set = new Settings();
 program.version("2.0.0");
 
@@ -27,7 +28,7 @@ program
   .option("-g, --generate-control")
   .option("-d, --disable-bzip")
   .action(file => {
-    console.log(file);
+    PM.add(file);
   });
 
 // Remove program
