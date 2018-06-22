@@ -27,6 +27,7 @@
   "private": true,
   "dependencies": {
     "commander": "^2.15.1",
+    "compressjs": "git+https://github.com/openpgpjs/compressjs.git",
     "fs-extra": "^6.0.1",
     "inquirer": "^6.0.0",
     "unipkg": "0.0.3"

@@ -1,9 +1,10 @@
 const dpkg = require("unipkg");
 const fs = require("fs-extra");
+const compressjs = require("compressjs");
 
 // first parse Packages to get the current files
 class PackageManager {
-  static async add(file) {
+  static async add(file, disable_bzip=false) {
     var files = [file];
     await fs
     .readFile("Packages")
@@ -18,11 +19,18 @@ class PackageManager {
           files.push(match[2]);
         }
       }
-    },{
-      // not found, just continue
+    }).catch(err => {
+      // do nothing, just continue
     });
 
-    return dpkg.scanFiles(files);
+    await dpkg.scanFiles(files);
+
+    if (!disable_bzip) {
+      const alg = compressjs.Bzip2;
+      const data = fs.readFileSync("Packages");
+      const compressed = alg.compressFile(data);
+      fs.writeFileSync("Packages.bz2", compressed, 'binary');
+    }
   }
 }
 

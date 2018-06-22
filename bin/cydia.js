@@ -25,10 +25,9 @@ program
 // Add program
 program
   .command("add <file>")
-  .option("-g, --generate-control")
-  .option("-d, --disable-bzip")
-  .action(file => {
-    PM.add(file);
+  .option("-d, --disable-bzip", "Disable Bzip2 for Packages")
+  .action((file, cmd) => {
+    return PM.add(file, cmd.disableBzip);
   });
 
 // Remove program
@@ -38,6 +37,6 @@ program.command("remove <file>").action(file => {
 
 program.parse(process.argv);
 
-if (program.args.length === 0) {
+if (!process.argv.slice(2).length) {
   program.help();
 }
