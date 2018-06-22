@@ -31,9 +31,12 @@ program
   });
 
 // Remove program
-program.command("remove <file>").action(file => {
-  console.log(file);
-});
+program
+  .command("remove <file>")
+  .option("-d, --disable-bzip", "Disable Bzip2 for Packages")
+  .action((file, cmd) => {
+    return PM.remove(file, cmd.disableBzip);
+  });
 
 program.parse(process.argv);
 
