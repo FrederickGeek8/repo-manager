@@ -38,6 +38,10 @@ program
     return PM.remove(file, cmd.disableBzip);
   });
 
+program.command("sign").action(() => {
+  return Settings.sign();
+});
+
 program.parse(process.argv);
 
 if (!process.argv.slice(2).length) {

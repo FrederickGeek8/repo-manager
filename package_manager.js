@@ -1,4 +1,3 @@
-"use strict";
 const dpkg = require("unipkg");
 const fs = require("fs-extra");
 const compressjs = require("compressjs");
