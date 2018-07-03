@@ -1,7 +1,7 @@
 {
   "name": "rpo",
   "version": "2.0.0",
-  "description": "Debian/Cydia repository manager with cli. Web and desktop interfaces planned.",
+  "description": "Debian/Cydia repository manager with a cli. Web and desktop interfaces planned.",
   "main": "index.js",
   "scripts": {
     "lint": "eslint src tests bin",
