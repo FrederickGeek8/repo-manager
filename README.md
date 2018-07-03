@@ -7,7 +7,7 @@ tool, but a web and desktop interface are planned for future releases.
 The purpose of this is to create a tool that can easily manage a Debian or Cydia
 repository regardless of platform. Utilizing libraries written entirely in
 Javascript, such as [unipkg](https://github.com/FrederickGeek8/unipkg),
-`rpo` is able to perform operations such as `dpkg` without `dpkg` ever being installed.
+`rpo` is able to perform operations such as `dpkg-scanpackages` without `dpkg` ever being installed.
 
 # Installing
 To install `rpo` globally run
