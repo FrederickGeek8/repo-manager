@@ -45,7 +45,6 @@ class Settings {
 
     await inquirer.prompt(questions).then(answers => {
       this.settings = answers;
-      console.log(this.settings);
     });
   }
 
@@ -88,6 +87,16 @@ class Settings {
   }
 
   static async sign() {
+    var release;
+
+    try {
+      release = fs.readFileSync("Release");
+    } catch (_) {
+      throw new Error(
+        "Release file not found or accessible. Try running cydia init."
+      );
+    }
+
     var homeDir = `${os.homedir()}/.cydia`;
     var pubkey;
     var privkey;
@@ -153,7 +162,7 @@ class Settings {
       .then(answers => privKeyObj.decrypt(answers["Passphrase"]));
 
     const options = {
-      data: fs.readFileSync("Release"),
+      data: release,
       privateKeys: [privKeyObj],
       detached: true
     };

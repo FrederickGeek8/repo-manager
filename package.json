@@ -1,7 +1,7 @@
 {
-  "name": "repo-manager",
+  "name": "rpo",
   "version": "2.0.0",
-  "description": "Cydia repository manager with cli, web, and desktop interfaces.",
+  "description": "Debian/Cydia repository manager with cli. Web and desktop interfaces planned.",
   "main": "index.js",
   "scripts": {
     "lint": "eslint src tests bin",
@@ -14,6 +14,10 @@
   },
   "keywords": [
     "cydia",
+    "repo",
+    "debian",
+    "deb",
+    "apt",
     "repository",
     "manager"
   ],
@@ -23,17 +27,16 @@
     "url": "https://github.com/FrederickGeek8/repo-manager/issues"
   },
   "bin": {
-    "cydia": "bin/cydia.js"
+    "rpo": "bin/rpo.js"
   },
   "homepage": "https://github.com/FrederickGeek8/repo-manager#readme",
-  "private": true,
   "dependencies": {
     "commander": "^2.15.1",
     "compressjs": "git+https://github.com/openpgpjs/compressjs.git",
     "fs-extra": "^6.0.1",
     "inquirer": "^6.0.0",
     "openpgp": "^3.0.11",
-    "unipkg": "0.0.3"
+    "unipkg": "0.0.4"
   },
   "devDependencies": {
     "eslint": "^4.19.1",

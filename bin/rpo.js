@@ -7,16 +7,35 @@ const set = new Settings();
 program.version("2.0.0");
 
 // Init
-program.command("init").action(() => {
-  set.edit().then(() => set.save());
-});
+program
+  .command("init")
+  .option("-s, --sign", "Sign Release using GPG")
+  .action(cmd => {
+    if (cmd.sign) {
+      return set
+        .edit()
+        .then(() => set.save())
+        .then(() => Settings.sign());
+    }
+
+    return set.edit().then(() => set.save());
+  });
 
 // Settings
 program
   .command("settings")
-  // .command('prefs')
-  .action(() => {
-    set
+  .option("-s, --sign", "Sign Release using GPG")
+  .alias("edit")
+  .action(cmd => {
+    if (cmd.sign) {
+      return set
+        .load()
+        .then(() => set.edit())
+        .then(() => set.save())
+        .then(() => Settings.sign());
+    }
+
+    return set
       .load()
       .then(() => set.edit())
       .then(() => set.save());
