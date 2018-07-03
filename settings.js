@@ -93,11 +93,11 @@ class Settings {
       release = fs.readFileSync("Release");
     } catch (_) {
       throw new Error(
-        "Release file not found or accessible. Try running cydia init."
+        "Release file not found or accessible. Try running rpo init."
       );
     }
 
-    var homeDir = `${os.homedir()}/.cydia`;
+    var homeDir = `${os.homedir()}/.rpo`;
     var pubkey;
     var privkey;
     var passphrase;

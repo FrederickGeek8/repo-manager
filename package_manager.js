@@ -70,8 +70,8 @@ class PackageManager {
 
     // cache results async
     const prom = fs
-      .mkdirp(".cydia")
-      .then(() => fs.writeFile(".cydia/Packages.json", JSON.stringify(files)));
+      .mkdirp(".rpo")
+      .then(() => fs.writeFile(".rpo/Packages.json", JSON.stringify(files)));
 
     return prom;
   }
@@ -81,14 +81,13 @@ class PackageManager {
       Check that either Packages or Packages.bz2 exist (maybe both) and load
       the more recent version
     */
-    const pkgCache =
-      (await fs.stat(".cydia/Packages.json").catch(() => {})) || 0;
+    const pkgCache = (await fs.stat(".rpo/Packages.json").catch(() => {})) || 0;
     const pkg = (await fs.stat("Packages").catch(() => {})) || 0;
     const pkgBz2 = (await fs.stat("Packages.bz2").catch(() => {})) || 0;
 
     var selected;
     if (pkgCache.mtime > pkg.mtime && pkgCache.mtime > pkgBz2.mtime) {
-      selected = ".cydia/Packages.json";
+      selected = ".rpo/Packages.json";
     } else if (pkg.mtime > pkgBz2.mtime && pkg.mtime > pkgCache.mtime) {
       selected = "Packages";
     } else {
@@ -117,7 +116,7 @@ class PackageManager {
         });
     } else {
       await fs
-        .readFile(".cydia/Packages.json")
+        .readFile(".rpo/Packages.json")
         .then(data => {
           pkgData = JSON.parse(data);
         })
