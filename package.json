@@ -1,0 +1,48 @@
+{
+  "name": "rpo",
+  "version": "2.0.0",
+  "description": "Debian/Cydia repository manager with cli. Web and desktop interfaces planned.",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint src tests bin",
+    "lint-fix": "eslint src tests bin --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FrederickGeek8/repo-manager.git"
+  },
+  "keywords": [
+    "cydia",
+    "repo",
+    "debian",
+    "deb",
+    "apt",
+    "repository",
+    "manager"
+  ],
+  "author": "Frederick Morlock",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FrederickGeek8/repo-manager/issues"
+  },
+  "bin": {
+    "rpo": "bin/rpo.js"
+  },
+  "homepage": "https://github.com/FrederickGeek8/repo-manager#readme",
+  "dependencies": {
+    "commander": "^2.15.1",
+    "compressjs": "git+https://github.com/openpgpjs/compressjs.git",
+    "fs-extra": "^6.0.1",
+    "inquirer": "^6.0.0",
+    "openpgp": "^3.0.11",
+    "unipkg": "^0.0.4"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-jest": "^21.17.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "prettier": "^1.13.5"
+  }
+}

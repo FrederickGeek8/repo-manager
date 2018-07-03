@@ -1,0 +1,16 @@
+{
+    "extends": ["plugin:prettier/recommended"],
+    "env": {
+        "node": true,
+        "es6": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 8,
+        "sourceType": "module"
+    },
+    "rules": {
+        "semi": 2,
+        "no-console": "off",
+        "no-cond-assign": [1, "except-parens"]
+    }
+}
