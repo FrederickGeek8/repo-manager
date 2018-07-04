@@ -138,6 +138,8 @@ class Settings {
               passphrase: answers["Passphrase"]
             };
 
+            console.log("Generating keys. This may take a while...");
+
             return openpgp.generateKey(options);
           })
           .then(key => {
