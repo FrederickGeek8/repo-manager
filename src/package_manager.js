@@ -4,8 +4,8 @@ const compressjs = require("compressjs");
 
 // first parse Packages to get the current files
 class PackageManager {
-  static async add(file, disable_bzip = false) {
-    var pkgData = await PackageManager.resolve();
+  static async add(file, disable_bzip = false, pathPrefix = "") {
+    var pkgData = await PackageManager.resolve(pathPrefix);
 
     var files = [file];
     if (Array.isArray(pkgData)) {
@@ -26,8 +26,8 @@ class PackageManager {
     return this.save(files, disable_bzip);
   }
 
-  static async remove(file, disable_bzip = false) {
-    var pkgData = await PackageManager.resolve();
+  static async remove(file, disable_bzip = false, pathPrefix = "") {
+    var pkgData = await PackageManager.resolve(pathPrefix);
 
     var files = [file];
     if (Array.isArray(pkgData)) {
@@ -55,58 +55,62 @@ class PackageManager {
     return this.save(files, disable_bzip);
   }
 
-  static async save(files, disable_bzip = false) {
+  static async save(files, disable_bzip = false, pathPrefix = "") {
     await dpkg.scanFiles(files);
 
     if (!disable_bzip) {
       const alg = compressjs.Bzip2;
-      const pkgData = fs.readFileSync("Packages");
+      const pkgData = fs.readFileSync(`${pathPrefix}Packages`);
       const compressed = alg.compressFile(pkgData);
-      fs.writeFileSync("Packages.bz2", compressed, "binary");
-      fs.unlink("Packages");
+      fs.writeFileSync(`${pathPrefix}Packages.bz2`, compressed, "binary");
+      fs.unlink(`${pathPrefix}Packages`);
     } else {
-      fs.unlink("Packages.bz2").catch(() => {}); // doesn't have to exist
+      fs.unlink(`${pathPrefix}Packages.bz2`).catch(() => {}); // doesn't have to exist
     }
 
     // cache results async
     const prom = fs
       .mkdirp(".rpo")
-      .then(() => fs.writeFile(".rpo/Packages.json", JSON.stringify(files)));
+      .then(() =>
+        fs.writeFile(`${pathPrefix}.rpo/Packages.json`, JSON.stringify(files))
+      );
 
     return prom;
   }
 
-  static async resolve() {
+  static async resolve(pathPrefix = "") {
     /*
       Check that either Packages or Packages.bz2 exist (maybe both) and load
       the more recent version
     */
-    const pkgCache = (await fs.stat(".rpo/Packages.json").catch(() => {})) || 0;
-    const pkg = (await fs.stat("Packages").catch(() => {})) || 0;
-    const pkgBz2 = (await fs.stat("Packages.bz2").catch(() => {})) || 0;
+    const pkgCache =
+      (await fs.stat(`${pathPrefix}.rpo/Packages.json`).catch(() => {})) || 0;
+    const pkg = (await fs.stat(`${pathPrefix}Packages`).catch(() => {})) || 0;
+    const pkgBz2 =
+      (await fs.stat(`${pathPrefix}Packages.bz2`).catch(() => {})) || 0;
 
     var selected;
     if (pkgCache.mtime > pkg.mtime && pkgCache.mtime > pkgBz2.mtime) {
-      selected = ".rpo/Packages.json";
+      selected = `${pathPrefix}.rpo/Packages.json`;
     } else if (pkg.mtime > pkgBz2.mtime && pkg.mtime > pkgCache.mtime) {
-      selected = "Packages";
+      selected = `${pathPrefix}Packages`;
     } else {
-      selected = "Packages.bz2";
+      selected = `${pathPrefix}Packages.bz2`;
     }
 
     var pkgData = "";
-    if (selected == "Packages.bz2") {
+    if (selected == `${pathPrefix}Packages.bz2`) {
       await fs
-        .readFile("Packages.bz2")
+        .readFile(`${pathPrefix}Packages.bz2`)
         .then(data => {
           const alg = compressjs.Bzip2;
           const decompressed = alg.decompressFile(data);
           pkgData = Buffer.from(decompressed).toString();
         })
         .catch(err => {});
-    } else if (selected == "Packages") {
+    } else if (selected == `${pathPrefix}Packages`) {
       await fs
-        .readFile("Packages")
+        .readFile(`${pathPrefix}Packages`)
         .then(data => {
           // Parse data
           pkgData = data;
@@ -116,7 +120,7 @@ class PackageManager {
         });
     } else {
       await fs
-        .readFile(".rpo/Packages.json")
+        .readFile(`${pathPrefix}.rpo/Packages.json`)
         .then(data => {
           pkgData = JSON.parse(data);
         })

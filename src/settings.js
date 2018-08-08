@@ -5,7 +5,7 @@ const openpgp = require("openpgp");
 const os = require("os");
 
 class Settings {
-  constructor() {
+  constructor(pathPrefix = "") {
     this.settings = {
       Origin: "",
       Label: "",
@@ -27,6 +27,7 @@ class Settings {
       Components: "main",
       Description: "Short description of repository."
     };
+    this.pathPrefix = pathPrefix;
   }
 
   async edit() {
@@ -49,7 +50,7 @@ class Settings {
   }
 
   async load() {
-    fs.stat("Release")
+    fs.stat(`${this.pathPrefix}Release`)
       .then(async stats => {
         const rl = readline.createInterface({
           input: fs.createReadStream("Release")
@@ -72,7 +73,7 @@ class Settings {
   }
 
   async save() {
-    const saving = fs.createWriteStream("Release");
+    const saving = fs.createWriteStream(`${this.pathPrefix}Release`);
 
     for (let key in this.settings) {
       let line = `${key}: ${this.settings[key]}\n`;
@@ -90,7 +91,7 @@ class Settings {
     var release;
 
     try {
-      release = fs.readFileSync("Release");
+      release = fs.readFileSync(`${this.pathPrefix}Release`);
     } catch (_) {
       throw new Error(
         "Release file not found or accessible. Try running rpo init."
