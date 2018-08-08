@@ -1,6 +1,6 @@
 {
   "name": "rpo",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Debian/Cydia repository manager with a cli. Web and desktop interfaces planned.",
   "main": "src/index.js",
   "scripts": {
