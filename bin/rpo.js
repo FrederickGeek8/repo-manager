@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 const program = require("commander");
-const Settings = require("../settings");
-const PM = require("../package_manager");
+const Settings = require("../src/settings");
+const PM = require("../src/package_manager");
 const set = new Settings();
 program.version("2.0.0");
 
