@@ -50,7 +50,7 @@ class Settings {
   }
 
   async load() {
-    fs.stat(`${this.pathPrefix}/Release`)
+    return fs.stat(`${this.pathPrefix}/Release`)
       .then(async stats => {
         const rl = readline.createInterface({
           input: fs.createReadStream(`${this.pathPrefix}/Release`)
@@ -68,8 +68,6 @@ class Settings {
         });
       })
       .catch(err => {
-        console.log(err);
-        console.log(`${this.pathPrefix}/Release`);
         return fs.open(`${this.pathPrefix}/Release`, "w").then(fd => fd.close());
       });
   }
