@@ -50,10 +50,10 @@ class Settings {
   }
 
   async load() {
-    fs.stat(`${this.pathPrefix}Release`)
+    fs.stat(`${this.pathPrefix}/Release`)
       .then(async stats => {
         const rl = readline.createInterface({
-          input: fs.createReadStream("Release")
+          input: fs.createReadStream(`${this.pathPrefix}/Release`)
         });
 
         rl.on("line", line => {
@@ -68,12 +68,14 @@ class Settings {
         });
       })
       .catch(err => {
-        return fs.open("Release", "w").then(fd => fd.close());
+        console.log(err);
+        console.log(`${this.pathPrefix}/Release`);
+        return fs.open(`${this.pathPrefix}/Release`, "w").then(fd => fd.close());
       });
   }
 
   async save() {
-    const saving = fs.createWriteStream(`${this.pathPrefix}Release`);
+    const saving = fs.createWriteStream(`${this.pathPrefix}/Release`);
 
     for (let key in this.settings) {
       let line = `${key}: ${this.settings[key]}\n`;
@@ -91,7 +93,7 @@ class Settings {
     var release;
 
     try {
-      release = fs.readFileSync(`${this.pathPrefix}Release`);
+      release = fs.readFileSync(`${this.pathPrefix}/Release`);
     } catch (_) {
       throw new Error(
         "Release file not found or accessible. Try running rpo init."
