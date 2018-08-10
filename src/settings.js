@@ -5,7 +5,7 @@ const openpgp = require("openpgp");
 const os = require("os");
 
 class Settings {
-  constructor(pathPrefix = "") {
+  constructor(pathPrefix = ".") {
     this.settings = {
       Origin: "",
       Label: "",
@@ -68,7 +68,7 @@ class Settings {
         });
       })
       .catch(err => {
-        return fs.open(`${this.pathPrefix}/Release`, "w").then(fd => fd.close());
+        throw new Error("Not a repository.");
       });
   }
 
