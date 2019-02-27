@@ -50,7 +50,8 @@ class Settings {
   }
 
   async load() {
-    return fs.stat(`${this.pathPrefix}/Release`)
+    return fs
+      .stat(`${this.pathPrefix}/Release`)
       .then(async stats => {
         const rl = readline.createInterface({
           input: fs.createReadStream(`${this.pathPrefix}/Release`)

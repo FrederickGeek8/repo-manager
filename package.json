@@ -1,11 +1,11 @@
 {
   "name": "rpo",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Debian/Cydia repository manager with a cli. Web and desktop interfaces planned.",
   "main": "src/index.js",
   "scripts": {
-    "lint": "eslint src tests bin",
-    "lint-fix": "eslint src tests bin --fix",
+    "lint": "eslint src bin",
+    "lint-fix": "eslint src bin --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -31,18 +31,18 @@
   },
   "homepage": "https://github.com/FrederickGeek8/repo-manager#readme",
   "dependencies": {
-    "commander": "^2.15.1",
+    "commander": "^2.19.0",
     "compressjs": "git+https://github.com/openpgpjs/compressjs.git",
     "fs-extra": "^6.0.1",
-    "inquirer": "^6.0.0",
-    "openpgp": "^3.0.11",
-    "unipkg": "^0.1.0"
+    "inquirer": "^6.2.2",
+    "openpgp": "^3.1.3",
+    "unipkg": "^0.1.2"
   },
   "devDependencies": {
-    "eslint": "^4.19.1",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-jest": "^21.17.0",
-    "eslint-plugin-prettier": "^2.6.0",
-    "prettier": "^1.13.5"
+    "eslint": "^5.14.1",
+    "eslint-config-prettier": "^2.10.0",
+    "eslint-plugin-jest": "^21.27.2",
+    "eslint-plugin-prettier": "^2.7.0",
+    "prettier": "^1.16.4"
   }
 }
