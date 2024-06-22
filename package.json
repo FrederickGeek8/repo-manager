@@ -1,6 +1,6 @@
 {
   "name": "rpo",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Debian/Cydia repository manager via a CLI.",
   "main": "src/index.js",
   "scripts": {
