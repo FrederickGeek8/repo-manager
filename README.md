@@ -49,8 +49,7 @@ available subcommands, you can run `rpo` or `rpo --help`. Example:
 `rpo sign`: Signs (if not already) a repository
 
 # Prerequisites
-All that is assumed that you are running a Node.js version that
-[has not been marked as end-of-life.](https://github.com/nodejs/Release#release-schedule)
+This project has been tested on Node v18.20.3.
 
 # Roadmap
 *Progress can be tracked over on the [project board.](https://github.com/FrederickGeek8/repo-manager/projects)*
