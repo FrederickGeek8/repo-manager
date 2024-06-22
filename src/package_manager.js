@@ -32,7 +32,7 @@ class PackageManager {
 
     var files = [];
     if (Array.isArray(pkgData)) {
-      files = pkgData.map(x => path.join(pathPrefix, x));
+      files = pkgData.map(x => path.relative(pathPrefix, x));
     } else {
       var chunks = pkgData.toString().split("\n\n");
       for (let i = 0; i < chunks.length; i++) {
@@ -45,14 +45,12 @@ class PackageManager {
       }
     }
 
-    var idx = files.indexOf(file);
-    if (idx > -1) {
-      files.splice(idx, 1);
-    } else {
+    const existing_set = new Set(files.map(x => path.resolve(x)));
+    if (!existing_set.delete(path.resolve(file))) {
       throw new Error(`File ${file} not found in Packages index.`);
     }
 
-    return this.save(files, disable_bzip, pathPrefix);
+    return this.save(Array.from(existing_set), disable_bzip, pathPrefix);
   }
 
   static async list(pathPrefix = "./") {
