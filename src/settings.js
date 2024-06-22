@@ -88,7 +88,13 @@ class Settings {
     saving.end();
   }
 
-  static async sign() {
+  async sign() {
+    console.warn(
+      "\tWARNING: This functionality for signing Releases is unmaintained but may\n" +
+        "\tbe considered security critical. Please ensure that you understand the\n" +
+        "\timplications. Contributions to the code are welcome.\n"
+    );
+
     var release;
 
     try {
@@ -100,19 +106,24 @@ class Settings {
     }
 
     var homeDir = `${os.homedir()}/.rpo`;
+    const pubKeyLoc = `${homeDir}/pubkey.key`;
+    const privKeyLoc = `${homeDir}/privkey.key`;
     var pubkey;
     var privkey;
     var passphrase;
     await fs
-      .readFile(`${homeDir}/pubkey.key`)
+      .readFile(pubKeyLoc)
       .then(data => {
         pubkey = data.toString();
-        return fs.readFile(`${homeDir}/privkey.key`);
+        return fs.readFile(privKeyLoc);
       })
       .then(data => {
         privkey = data.toString();
       })
       .catch(err => {
+        console.warn(
+          `\tWARNING: Creating PGP Public Key in ${pubKeyLoc} and Private Key in ${privKeyLoc}`
+        );
         // create key pair
         const questions = [
           {
@@ -149,8 +160,8 @@ class Settings {
             pubkey = key.publicKeyArmored;
           })
           .then(_ => fs.mkdirp(homeDir))
-          .then(_ => fs.writeFile(`${homeDir}/pubkey.key`, pubkey))
-          .then(_ => fs.writeFile(`${homeDir}/privkey.key`, privkey));
+          .then(_ => fs.writeFile(pubKeyLoc, pubkey))
+          .then(_ => fs.writeFile(privKeyLoc, privkey));
       });
 
     const privKeyObj = openpgp.key.readArmored(privkey).keys[0];

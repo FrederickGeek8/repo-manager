@@ -15,7 +15,7 @@ program
       return set
         .edit()
         .then(() => set.save())
-        .then(() => Settings.sign());
+        .then(() => set.sign());
     }
 
     return set.edit().then(() => set.save());
@@ -32,7 +32,7 @@ program
         .load()
         .then(() => set.edit())
         .then(() => set.save())
-        .then(() => Settings.sign());
+        .then(() => set.sign());
     }
 
     return set
@@ -58,7 +58,7 @@ program
   });
 
 program.command("sign").action(() => {
-  return Settings.sign();
+  return set.sign();
 });
 
 program.parse(process.argv);
