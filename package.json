@@ -38,7 +38,7 @@
     "compressjs": "git+https://github.com/openpgpjs/compressjs.git",
     "fs-extra": "^6.0.1",
     "inquirer": "^6.2.2",
-    "openpgp": "^5.11.2",
+    "openpgp": "^6.1.1",
     "unipkg": "^0.2.1"
   },
   "devDependencies": {
